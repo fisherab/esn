@@ -1,0 +1,99 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:style>
+        .image {
+        	width: 100px;
+        	margin: 0px 10px 0px 0px;
+        }
+        
+        .price {
+        	font-weight: bold;
+        	color: green;
+        	width: 90px;
+        	margin: .3em 0em 0em 0em;
+        }
+        
+        .quantity {
+        	width: 2em;
+        	margin: 0em 1em 0em 0em;
+        }
+        
+        .total {
+        	width: 60px;
+        	margin: .3em 0em 0em 0em;
+        }
+        
+        .name {
+        	font-weight: bold;
+        	color: green;
+        	width: 270px;
+        }
+    </ui:style>
+
+
+    <g:VerticalPanel>
+
+        <g:HTML ui:field="status"></g:HTML>
+
+        <g:VerticalPanel ui:field="writeBlock">
+
+            <g:FormPanel ui:field="form">
+                <g:VerticalPanel>
+                    <g:HTML>
+                        <hr />
+                    </g:HTML>
+
+                    <g:FileUpload ui:field="fileupload" name="fileupload"></g:FileUpload>
+                    <g:HTML>
+                        <br />
+                    </g:HTML>
+                    <g:HorizontalPanel>
+                        <g:Label>Name for stored file</g:Label>
+                        <g:HTML width="1em" />
+                        <g:TextBox ui:field="filename" name="filename" width="300px" title="Name the file will have on the server"></g:TextBox>
+                        <g:Hidden ui:field="dirInForm" name="dirInForm"/>
+                    </g:HorizontalPanel>
+                    <g:HTML>
+                        <br />
+                    </g:HTML>
+                    <g:Button ui:field="submit">Submit</g:Button>
+                    <g:HTML>
+                        <hr />
+                    </g:HTML>
+                </g:VerticalPanel>
+
+            </g:FormPanel>
+
+            <g:HorizontalPanel>
+                <g:Label>New directory</g:Label>
+                <g:HTML width="1em" />
+                <g:TextBox ui:field="dirname" width="300px"></g:TextBox>
+            </g:HorizontalPanel>
+            <g:Button ui:field="submitNewDir">Submit</g:Button>
+            <g:HTML>
+                <hr />
+            </g:HTML>
+        </g:VerticalPanel>
+
+        <g:HorizontalPanel ui:field="readBlock">
+            <g:Button ui:field="clearImages">Clear Images
+            </g:Button>
+            <g:Grid ui:field="selected" />
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel>
+            <g:Label>Current directory:</g:Label>
+            <g:HTML width="1em" />
+            <g:Label ui:field="dir" />
+            <g:HTML>
+                <br />
+                <br />
+            </g:HTML>
+        </g:HorizontalPanel>
+
+        <g:Grid ui:field="grid" />
+
+    </g:VerticalPanel>
+
+
+</ui:UiBinder>

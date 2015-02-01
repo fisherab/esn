@@ -1,0 +1,44 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:u="urn:import:com.eyespynature.user">
+
+    <ui:style>
+        .message {
+        	margin: 20px 0px 20px 20px;
+        	color: red;
+        }
+        
+        .listbox {
+        	margin: 10px 0px 10px 20px;
+        }
+        
+        .label {
+        	margin: 12px 0px 10px 550px;
+        }
+    </ui:style>
+
+    <g:HorizontalPanel>
+        <u:TopLeft />
+
+        <g:VerticalPanel>
+            <u:Header />
+            <g:HTML ui:field="message" addStyleNames='{style.message}' />
+            <g:HorizontalPanel>
+                <g:Label addStyleNames='{style.label}'>Sort by</g:Label>
+                <g:ListBox ui:field="sort" addStyleNames='{style.listbox}'>
+                    <g:item>
+                        Relevance
+                    </g:item>
+                    <g:item>
+                        Price: Low to High
+                    </g:item>
+                    <g:item>
+                        Price: High to Low
+                    </g:item>
+                </g:ListBox>
+            </g:HorizontalPanel>
+            <g:VerticalPanel ui:field="items" />
+            <u:Pager ui:field="pager" />
+            <u:Footer />
+
+        </g:VerticalPanel>
+    </g:HorizontalPanel>
+</ui:UiBinder>

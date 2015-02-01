@@ -1,0 +1,80 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:u="urn:import:com.eyespynature.user">
+
+    <ui:with field='res' type='com.eyespynature.user.Resources' />
+
+    <ui:style>
+        .images {
+        	margin: 10px 10px 10px 10px;
+        }
+        
+        .text {
+        	width: 400px;
+        	margin: 10px;
+        }
+        
+        .price {
+        	margin: 3px 0px 0px 300px;
+        }
+        
+        .description {
+        	margin: 0px 0px 10px 0px;
+        }
+        
+        .name {
+        	font-weight: bold;
+        	color: green;
+        	margin: 0px 0px 10px 0px;
+        }
+        
+        .cart {
+        	margin: 0px 0px 0px 10px;
+        }
+    </ui:style>
+
+    <g:HorizontalPanel>
+
+        <u:TopLeft />
+
+        <g:VerticalPanel>
+            <u:Header />
+            <u:CrumbPanel ui:field="crumbs" />
+
+            <g:HorizontalPanel>
+                <g:VerticalPanel ui:field="images" addStyleNames='{style.images}' />
+                <g:VerticalPanel styleName='{style.text}'>
+
+                    <g:HTML ui:field="name" addStyleNames='{style.name}' />
+                    <g:HTML ui:field="description" addStyleNames='{style.description}' />
+                    <g:HTML ui:field="stock" />
+                    <g:HorizontalPanel>
+                        <g:HTML ui:field="price" addStyleNames='{res.css.price} {style.price}' />
+                        <g:Button ui:field="cartButton" addStyleNames='{style.cart} {res.css.buy}'>Add to basket
+                        </g:Button>
+                    </g:HorizontalPanel>
+
+                    <g:HTML>
+                        <h2>Description</h2>
+                    </g:HTML>
+                    <g:HTML ui:field="longDescription" />
+
+                    <g:HTML>
+                        <h2>Advice</h2>
+                    </g:HTML>
+                    <g:HTML ui:field="advice" />
+
+                    <g:HTML>
+                        <h2>Specification</h2>
+                    </g:HTML>
+                    <g:HTML ui:field="specification"></g:HTML>
+                </g:VerticalPanel>
+            </g:HorizontalPanel>
+            <g:HTML>
+                <hr />
+            </g:HTML>
+
+            <u:Footer />
+
+        </g:VerticalPanel>
+    </g:HorizontalPanel>
+
+</ui:UiBinder>

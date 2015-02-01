@@ -1,0 +1,21 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:u="urn:import:com.eyespynature.user">
+
+    <ui:with field='res' type='com.eyespynature.user.Resources' />
+
+    <ui:style>
+        .prominent {
+        	font-size: 1.3em;
+        	font-style: italic;
+        	font-weight: bold;
+        	margin: 0px 0px 5px 10px;
+        }
+    </ui:style>
+
+    <g:VerticalPanel>
+
+        <g:Image ui:field="logo" resource='{res.logo}' addStyleNames='{res.css.click}' />
+        <g:HTML addStyleNames='{style.prominent}'>Bringing nature to you</g:HTML>
+
+    </g:VerticalPanel>
+
+</ui:UiBinder>

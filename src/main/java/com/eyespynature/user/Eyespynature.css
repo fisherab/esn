@@ -1,0 +1,65 @@
+body { /* 	background-color: #e0e0e0; */
+	
+}
+
+h1,.h1 {
+	font-size: 2em;
+	font-weight: bold;
+	color: #777777;
+}
+
+h2,.h2 {
+	color: brown;
+	font-weight: bold;
+	font-size: 1.3em;
+	margin: .5em 0em 0em 0em;
+}
+
+.border {
+	border: 2px solid green;
+}
+
+.link {
+	color: green;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.menu {
+	width: 180px;
+	margin: 15px 10px 0px 10px;
+	padding: 2px;
+	background: beige;
+}
+
+.price {
+	color: brown;
+	font-weight: bold;
+	font-size: 1.3em;
+}
+
+.buy {
+	border: solid 1px #d3d4d6;
+	height: 24px;
+	white-space: nowrap;
+	padding: 0 10px;
+	background: green;
+	color: #f3f4f6;
+	width: 108px;
+}
+
+a,a:visited,a:hover {
+	color: green;
+}
+
+button {
+	border: solid 1px #d3d4d6;
+	color: green;
+	height: 24px;
+	white-space: nowrap;
+	padding: 0 10px;
+}
+
+.click {
+	cursor: pointer;
+}

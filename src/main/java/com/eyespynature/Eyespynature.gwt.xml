@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='eyespynature'>
+
+    <inherits name='com.google.gwt.user.User' />
+    <inherits name='com.google.gwt.user.theme.standard.Standard' />
+    <inherits name='com.google.gwt.logging.Logging' />
+    <inherits name="com.google.gwt.resources.Resources" />
+
+<!--     <set-property name="user.agent" value="safari" /> -->
+
+    <!-- Specify the app entry point class. -->
+    <entry-point class='com.eyespynature.user.Eyespynature' />
+
+    <!-- Specify the paths for translatable code -->
+    <source path='user' />
+    <source path='client' />
+    <source path='shared' />
+
+    <set-property name="gwt.logging.popupHandler" value="DISABLED" />
+    <set-property name="gwt.logging.logLevel" value="FINEST" />
+
+</module>
+
+
+
+
+
+
+	

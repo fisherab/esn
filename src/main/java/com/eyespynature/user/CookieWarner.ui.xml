@@ -1,0 +1,54 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:style>
+        .main {
+        	padding: 8px;
+        	border: 3px;
+        	margin: 8px;
+        	border-color: green;
+        	border-style: solid;
+        	width: 97%;
+        	margin-left: auto;
+        	margin-right: auto;
+        }
+        
+        .border {
+        	margin: 5px;
+        }
+        
+        .boxBorder {
+        	margin: 4px 0px 0px 0px;
+        }
+        
+        .buttonBorder {
+        	margin: 1px 0px 0px 5px;
+        }
+    </ui:style>
+
+    <g:HorizontalPanel width="100%">
+        <g:HorizontalPanel addStyleNames='{style.main}'>
+            <g:VerticalPanel>
+                <g:FlowPanel addStyleNames='{style.border}'>
+                    <g:HTML>
+                        In common with many web sites we would like to store cookies
+                        on
+                        your
+                        computer in order to allow the web site to function
+                        properly.
+                        For
+                        details see our
+                        <a href='#privacy'>privacy policy</a>
+                        .
+                    </g:HTML>
+                </g:FlowPanel>
+                <g:HorizontalPanel>
+                    <g:HTML addStyleNames='{style.border}'>Please click the button to to accept cookies from this site.</g:HTML>
+                    <g:Button ui:field="button" addStyleNames='{style.buttonBorder}'>I accept cookies from this site
+                    </g:Button>
+                </g:HorizontalPanel>
+            </g:VerticalPanel>
+        </g:HorizontalPanel>
+    </g:HorizontalPanel>
+
+
+</ui:UiBinder>
