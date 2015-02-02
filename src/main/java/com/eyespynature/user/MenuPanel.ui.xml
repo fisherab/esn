@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:u="urn:import:com.eyespynature.user">
+
+    <g:HorizontalPanel>
+    
+        <g:VerticalPanel>
+            <u:TopLeft />
+            <g:VerticalPanel ui:field='leftMenuPanel' />
+        </g:VerticalPanel>
+        
+        <g:VerticalPanel>
+            <u:Header />
+            <u:CrumbPanel ui:field="crumbs" />
+            <g:HorizontalPanel>
+                <g:ScrollPanel>
+                    <g:VerticalPanel>
+                        <g:HTML ui:field="html" width="60em"></g:HTML>
+                        <g:VerticalPanel ui:field='items' />
+                    </g:VerticalPanel>
+                </g:ScrollPanel>
+            </g:HorizontalPanel>
+            <u:Footer />
+        </g:VerticalPanel>
+    </g:HorizontalPanel>
+
+</ui:UiBinder>

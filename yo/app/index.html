@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="esnApp" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- build:css(.) styles/vendor.css -->
+<!-- bower:css -->
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:css(.tmp) styles/main.css -->
+<link rel="stylesheet" href="styles/lavish-bootstrap.css" />
+<link rel="stylesheet" href="styles/app.css" />
+<!-- endbuild -->
+
+<title>Eye Spy Nature</title>
+</head>
+
+<body>
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"> <img
+					ng-src="images/logo3.3-ToolbarLogo.png" /> <img
+					ng-src="images/logo3.3-ToolbarText.png" />
+				</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#/Home">Home</a></li>
+					<li><a href="#/Shop">Shop</a></li>
+					<li class="dropdown hidden-xs hidden-sm"><a
+						class="dropdown-toggle" data-toggle="dropdown"> Shop for... <span
+							class="caret"></span>
+					</a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#/Shop/Nestboxes">Nestboxes</a></li>
+							<li><a href="#/Shop/Cameras">Cameras</a></li>
+							<li><a href="#/Shop/Tools">Tools</a></li>
+						</ul></li>
+					<li><a href="#/Build">Build Your Own</a></li>
+					<li class="hidden-xs hidden-sm"><a href="#/About">About</a></li>
+					<li class="hidden-xs hidden-sm hidden-md"><a href="#/Contact">Contact</a>
+					</li>
+				</ul>
+				<form class="navbar-form navbar-right" role="search">
+					<a href="#/Basket" class="btn btn-default" role="button"> <!--    <b>{{basket.quantity}}</b> items = {{basket.total | currency: "&pound;" }} -->
+						<i class="fa fa-shopping-cart fa-lg"></i>
+					</a>
+					<!-- 					<div class="input-group">
+						<input type="text" size="10" class="form-control" placeholder="Search...">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">
+								<i class="fa fa-search"></i>
+							</button>
+						</span>
+					</div> -->
+					<div class="form-group">
+						<input type="text" size="10" class="form-control"
+							placeholder="Search...">
+					</div>
+				</form>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</div>
+	<div ngCloak ng-controller="CookieController as CookieCtrl"
+		ng-init="CookieCtrl.setAcceptedCookies()" ng-show=!hasAcceptedCookies
+		class="alert alert-danger" role="alert">
+		In common with many web sites we would like to store cookies on your
+		computer in order to allow the web site to function properly. For
+		details see our <a href="#/Privacy">Privacy Policy.</a> <br
+			class="hidden-xs hidden-sm hidden-md" /> Please click the button to
+		to accept cookies from this site.
+		<button class="btn btn-sm btn-primary" type="button"
+			ng-click="CookieCtrl.accept()">
+			<i class="fa fa-check"></i> I accept cookies from this site
+		</button>
+	</div>
+
+
+
+	<div ng-view class="container theme-showcase" role="main"></div>
+
+	<br />
+	<div class="footer">
+		<div class="container footerContainer">
+			<a href="#/About">About</a> | <a href="#/Contact">Contact Us</a> | <a
+				href="#/Delivery">Delivery</a> | <a href="#/Privacy">Privacy
+				Policy</a>
+		</div>
+	</div>
+
+	<!-- build:js(.) scripts/oldieshim.js -->
+	<!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <![endif]-->
+	<!-- endbuild -->
+
+	<!-- build:js(.) scripts/vendor.js -->
+	<!-- bower:js -->
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.js"></script>
+	<script src="bower_components/angular-touch/angular-touch.js"></script>
+	<script src="bower_components/angular-route/angular-route.js"></script>
+	<!-- endbower -->
+	<!-- endbuild -->
+
+	<!-- build:js({.tmp,app}) scripts/scripts.js -->
+	<script src="app.js"></script>
+	<script src="components/products/products.js"></script>
+	<script src="components/basket/basket.js"></script>
+	<script src="components/basket/delivery.js"></script>
+	<script src="components/basket/postcodevalidationService.js"></script>
+	<script src="shop/cookies.js"></script>
+	<script src="shop/shop.js"></script>
+	<!-- endbuild -->
+
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:u="urn:import:com.eyespynature.user">
+
+    <ui:with field='res' type='com.eyespynature.user.Resources' />
+
+
+
+    <ui:style>
+        .image {
+        	margin: 10px;
+        }
+        
+        .text {
+        	width: 400px;
+        	margin: 10px;
+        }
+        
+        .name {
+        	font-weight: bold;
+        }
+        
+        .stock {
+        	margin: 10px 0px 0px 0px;
+        }
+        
+        .vspace {
+        	margin: 5px 0px 0px 0px;
+        }
+    </ui:style>
+
+    <g:VerticalPanel>
+
+        <g:HorizontalPanel>
+
+            <g:Image ui:field="image" styleName='{style.image}' />
+            <g:VerticalPanel styleName='{style.text}'>
+                <g:Hyperlink ui:field="name" addStyleNames='{style.name} {res.css.link}' />
+                <g:HTML ui:field="description" />
+                <g:HTML ui:field="stock" addStyleNames='{style.stock}' />
+            </g:VerticalPanel>
+            <g:VerticalPanel>
+                <g:HTML ui:field="price" styleName='{res.css.price} {style.vspace}'></g:HTML>
+                <g:Button ui:field="cartButton" addStyleNames='{res.css.buy} {style.vspace}'>Add to basket</g:Button>
+                <g:Button ui:field="more" addStyleNames='{style.vspace}'>More information</g:Button>
+            </g:VerticalPanel>
+
+        </g:HorizontalPanel>
+        <g:HTML>
+            <hr />
+        </g:HTML>
+
+    </g:VerticalPanel>
+
+</ui:UiBinder>

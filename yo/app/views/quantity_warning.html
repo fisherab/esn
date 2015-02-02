@@ -1,0 +1,11 @@
+<small ng-show={{product.numberInStock}}>
+	<p ng-show={{product.numberInStock}} === 0>
+		There are none in stock - for more please <a href="/Contact">contact us</a>
+	</p>
+	<p ng-show={{product.numberInStock}} === 1>
+		There is only {{product.quantity}} in stock - for more please <a href="/Contact">contact us</a>
+	</p>
+	<p ng-show={{product.numberInStock}} === 2>
+		There are only {{product.quantity}} in stock - for more please <a href="/Contact">contact us</a>
+	</p>
+</small>

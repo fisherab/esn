@@ -1,0 +1,151 @@
+/* app css stylesheet */
+
+/*Nav bar padding*/
+body {
+  padding-top: 67px;
+}
+/* @media (max-width: 979px) {
+  body {
+    padding-top: 0px;
+  }
+} */
+
+/* Cookies msg */
+.alert {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+/* Used for products grid layout */
+.thumbnail {
+padding-top: 10px !important;
+background-color: #ffffff !important;
+}
+
+.toggle-btn {
+	margin: 9px;
+}
+
+.well h2 {
+	margin-top: 6px;
+}
+
+.breadcrumb {
+	margin-top: 8px;
+	margin-bottom: 0;
+	margin-left: 14px;
+}
+
+.extra-margin-left {
+	margin-left: 20px;
+}
+
+
+.margin-right {
+	margin-right: 5px;
+}
+
+/* Used for the home page extra text */
+.extra-padding {
+padding: 20px !important;
+}
+
+.extra-padding-top {
+padding-top: 20px !important;
+}
+
+.extra-padding-top-huge {
+padding-top: 40px;
+}
+
+.extra-margin-bottom { 
+margin-bottom: 10px;
+}
+
+.extra-margin-top {
+margin-top: 14px;
+}
+
+.extra-padding-top-sm {
+padding-top: 5px;
+}
+
+.inheritLineHeight {
+line-height: inherit;
+}
+
+.jumbotron .lowerText p {
+	font-size: 16px;
+	padding-bottom: 16px;
+}
+
+.btn{
+	margin-bottom: 2px;
+}
+
+.altH2 {
+font-size: 30px;
+margin-top: 0;	
+margin-bottom: 25px;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-weight: 500;
+line-height: 0.8;
+}
+
+/* Used in home page only */
+.jumbotron {
+padding-top: 20px;
+padding-bottom: 0;
+}
+
+.top-buffer { margin-top:15px; }
+
+.toggle {
+	padding-top: 5px;
+    padding-bottom: 7px;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 40px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40px;
+}
+
+.footerContainer {
+  width: auto;
+  padding-top: 20px;
+}
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.thumbnail.right-caption > img {
+    float: left;
+    margin: 20px;
+}
+
+.thumbnail.right-caption {
+    float: left;
+}
+.thumbnail.right-caption > .caption  {
+    padding: 4px;
+}
+
+.lessOpacity {   			
+   opacity: 0.4;
+   filter: alpha(opacity=40);
+   zoom: 1;  /* needed to trigger "hasLayout" in IE if no width or height is set */ 
+}

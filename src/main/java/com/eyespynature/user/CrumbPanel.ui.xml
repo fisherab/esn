@@ -1,0 +1,11 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:style>
+        .pos {
+        	margin: 10px 0px 0px 5px;
+        }
+    </ui:style>
+
+    <g:HorizontalPanel ui:field="main" addStyleNames='{style.pos}'></g:HorizontalPanel>
+
+</ui:UiBinder>

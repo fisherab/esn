@@ -1,0 +1,12 @@
+ <div class="row" >
+  <a href="#" class="btn btn-default pull-right" role="button">Grid</a>
+</div>
+  <div class="list-group-item" ng-repeat="product in products">
+    <h3>{{product.name}} <em class="pull-right">{{product.price/100 | currency: "&pound;" }}</em></h3>
+    <h4>Description: {{product.description}}</h4>
+    <img ng-src="{{product.image}}" class="img-rounded" />
+    <a href="#" class="btn btn-primary" role="button">Add to Basket</a> 
+    <a href="#" class="btn btn-default" role="button">Button</a>        
+  </div>
+  
+</div>

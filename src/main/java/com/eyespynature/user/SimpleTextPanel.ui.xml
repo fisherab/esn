@@ -1,0 +1,24 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:u="urn:import:com.eyespynature.user">
+
+    <ui:style>
+        .main {
+        	margin: 15px;
+        	width: 20cm;
+        }
+    </ui:style>
+
+
+    <g:HorizontalPanel>
+        <u:TopLeft />
+
+        <g:VerticalPanel>
+            <u:Header />
+            <g:HTML ui:field="html" addStyleNames='{style.main}' />
+            <g:HTML>
+                <hr />
+            </g:HTML>
+            <u:Footer />
+        </g:VerticalPanel>
+    </g:HorizontalPanel>
+
+</ui:UiBinder>

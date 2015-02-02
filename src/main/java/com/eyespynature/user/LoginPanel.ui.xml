@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:with field='res' type='com.eyespynature.user.Resources' />
+
+    <ui:style>
+        .vpanel {
+        	margin: 0px 0px 0px 50px;
+        }
+        
+        .user {
+        	margin: 40px 0px 0px 0px;
+        }
+        
+        .message {
+        	margin: 40px 0px 0px 0px;
+        	color: green;
+        }
+    </ui:style>
+
+    <g:VerticalPanel ui:field="main">
+        <g:HorizontalPanel>
+            <g:VerticalPanel ui:field="login" addStyleNames='{style.vpanel}'>
+                <g:HTML addStyleNames='{res.css.h2}'>Login</g:HTML>
+                <g:HTMLPanel>
+                    <table>
+                        <tr>
+                            <td>email</td>
+                            <td>
+                                <g:TextBox ui:field="loginEmail" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td>
+                                <g:PasswordTextBox ui:field="loginPwd" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td />
+                            <td>
+                                <g:Button ui:field="loginButton">Submit</g:Button>
+                            </td>
+                        </tr>
+                    </table>
+                    <HTML>
+                        <hr />
+                    </HTML>
+                </g:HTMLPanel>
+
+                <g:HTML addStyleNames='{res.css.h2}'>Logout</g:HTML>
+                <g:HTMLPanel>
+                    <table>
+                        <tr>
+                            <td />
+                            <td>
+                                <g:Button ui:field="logoutButton">Submit</g:Button>
+                            </td>
+                        </tr>
+                    </table>
+                </g:HTMLPanel>
+
+            </g:VerticalPanel>
+
+            <g:VerticalPanel ui:field="change" addStyleNames='{style.vpanel}'>
+
+                <g:HTML addStyleNames='{res.css.h2}'>Change Password</g:HTML>
+                <g:HTMLPanel>
+                    <table>
+                        <tr>
+                            <td>email</td>
+                            <td>
+                                <g:TextBox ui:field="chPwdEmail" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+
+                            <td>
+                                <g:PasswordTextBox ui:field="chPwdPwd" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>password again</td>
+
+                            <td>
+                                <g:PasswordTextBox ui:field="chPwdPwdAgain" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td />
+                            <td>
+                                <g:Button ui:field="chPwdButton">Submit</g:Button>
+                            </td>
+                        </tr>
+                    </table>
+                    <HTML>
+                        <hr />
+                    </HTML>
+                </g:HTMLPanel>
+
+                <g:HTML addStyleNames='{res.css.h2}'>Change Email</g:HTML>
+                <g:HTMLPanel>
+                    <table>
+                        <tr>
+                            <td>email</td>
+                            <td>
+                                <g:TextBox ui:field="chEmailEmail" />
+                            </td>
+                        </tr>
+                        <td>new email</td>
+                        <td>
+                            <g:TextBox ui:field="chEmailNewEmail" />
+                        </td>
+                        <tr>
+                            <td />
+                            <td>
+                                <g:Button ui:field="chEmailButton">Submit</g:Button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </g:HTMLPanel>
+            </g:VerticalPanel>
+
+            <g:VerticalPanel ui:field="register" addStyleNames='{style.vpanel}'>
+
+                <g:HTML addStyleNames='{res.css.h2}'>Register</g:HTML>
+                <g:HTMLPanel>
+                    <table>
+                        <tr>
+                            <td>email</td>
+                            <td>
+                                <g:TextBox ui:field="registerEmail" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td>
+                                <g:PasswordTextBox ui:field="registerPwd" />
+                            </td>
+                        </tr>
+                        <td>privilege</td>
+                        <td>
+                            <g:ListBox ui:field="registerPriv" />
+                        </td>
+                        <tr>
+                            <td />
+                            <td>
+                                <g:Button ui:field="registerButton">Submit</g:Button>
+                            </td>
+                        </tr>
+                    </table>
+                    <HTML>
+                        <hr />
+                    </HTML>
+                </g:HTMLPanel>
+
+                <g:HTML addStyleNames='{res.css.h2}'>Change Privilege</g:HTML>
+                <g:HTMLPanel>
+                    <table>
+                        <tr>
+                            <td>email</td>
+                            <td>
+                                <g:TextBox ui:field="chPrivEmail" />
+                            </td>
+                        </tr>
+                        <td>privilege</td>
+                        <td>
+                            <g:ListBox ui:field="chPrivPriv" />
+                        </td>
+                        <tr>
+                            <td />
+                            <td>
+                                <g:Button ui:field="chPrivButton">Submit</g:Button>
+                            </td>
+                        </tr>
+                    </table>
+                    <HTML>
+                        <hr />
+                    </HTML>
+                </g:HTMLPanel>
+
+                <g:HTML addStyleNames='{res.css.h2}'>Unregister</g:HTML>
+                <g:HTMLPanel>
+                    <table>
+                        <tr>
+                            <td>email</td>
+                            <td>
+                                <g:TextBox ui:field="unregisterEmail" />
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td />
+                            <td>
+                                <g:Button ui:field="unregisterButton">Submit</g:Button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </g:HTMLPanel>
+
+
+            </g:VerticalPanel>
+        </g:HorizontalPanel>
+        <g:HTML>
+            <hr />
+        </g:HTML>
+        <g:HTML ui:field="user" addStyleNames='{style.user}' />
+        <g:HTML ui:field="message" addStyleNames='{style.message}' />
+
+    </g:VerticalPanel>
+</ui:UiBinder>

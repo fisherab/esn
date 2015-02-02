@@ -1,0 +1,39 @@
+<div class="jumbotron hidden-xs hidden-sm extra-padding col-md-12 col-lg-offset-1 col-lg-10">
+	<div class="row text-center">
+		<span ng-repeat="type in types">
+			<div ng-class="$first ? 'col-md-offset-1 col-md-3 col-lg-offset-3 col-lg-2' : 'col-md-3 col-lg-2'">
+				<span class="extra-margin-bottom">
+					<img ng-src="{{type.image}}" class="img-rounded extra-margin-bottom" />
+				</span>
+				<a href="#/Shop/{{type.name}}" class="btn btn-primary" role="button">Shop All {{type.name}}</a>
+			</div>
+		</span>
+	</div>
+</div>
+<div class="row ">
+<div class="well col-xs-12 col-sm-12 col-md-12 col-lg-offset-1 col-lg-10" >
+	<span ng-repeat="type in types">
+		<div class="row ">
+			<div class="col-xs-4 col-sm-3 col-md-3 col-lg-3 text-center">
+				<img ng-src="{{type.image}}" class="img-rounded" />
+			</div>
+			<div class="col-xs-8 col-sm-5 col-md-5 col-lg-5">
+				<span class="h3">{{type.name}}</span>
+				<p class="extra-padding-top-sm">{{type.summary}}</p>
+				<a href="#/Shop/{{type.name}}" class="btn btn-primary extra-margin-bottom" role="button">Shop All {{type.name}}</a>
+			</div>
+			<div class="col-xs-offset-4 col-xs-8 col-sm-4 col-md-4 col-lg-4">
+				<span ng-hide="type.links.length < 1" class="h4 inheritLineHeight">
+					Shop for:
+					<br />
+				</span>
+				<span ng-repeat="link in type.links">
+					<a href="#/Shop/{{link}}" class="h4 inheritLineHeight">{{link}}</a>
+					<br ng-hide="$last">
+				</span>
+			</div>
+		</div>
+		<hr ng-hide="$last">
+	</span>
+</div>
+</div>

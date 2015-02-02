@@ -1,0 +1,47 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:a='urn:import:com.eyespynature.admin'>
+
+    <ui:style>
+        .image {
+        	width: 100px;
+        	margin: 0px 10px 0px 0px;
+        }
+        
+        .price {
+        	font-weight: bold;
+        	color: green;
+        	width: 90px;
+        	margin: .3em 0em 0em 0em;
+        }
+        
+        .quantity {
+        	width: 2em;
+        	margin: 0em 1em 0em 0em;
+        }
+        
+        .total {
+        	width: 60px;
+        	margin: .3em 0em 0em 0em;
+        }
+        
+        .name {
+        	font-weight: bold;
+        	color: green;
+        	width: 270px;
+        }
+    </ui:style>
+
+
+    <g:VerticalPanel>
+        <g:HTML>
+            <h2>Manage Files</h2>
+        </g:HTML>
+
+        <g:ScrollPanel>
+            <a:FileSelectionPanel mode="write" ui:field="fsp" />
+        </g:ScrollPanel>
+
+
+    </g:VerticalPanel>
+
+
+</ui:UiBinder>

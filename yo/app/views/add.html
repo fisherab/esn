@@ -1,0 +1,46 @@
+<div class="row">
+	<span class="extra-padding-top-huge col-xs-4 col-sm-4 col-md-offset-1 col-md-2 col-lg-offset-1 col-lg-2 text-center">
+		<img ng-src="{{product.imageCart}}" class=" img-rounded" />
+	</span>
+	<span class="col-xs-8 col-sm-8 col-md-9 col-lg-9">
+		<div class="row">
+			<span class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h3>
+					<span class="label label-default">1 item added to your Basket</span>
+				</h3>
+				<h4>{{product.name}} - {{product.price/100 | currency: "&pound;" }}</h4>
+			</span>
+			<div class="alert alert-success col-xs-11 col-sm-11 col-md-11 col-lg-9">
+				<p class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<b>{{basket.quantity}}</b> items in your basket Basket total {{basket.subtotal/100 | currency: "&pound;" }}
+				</p>
+				<span class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					<!-- 			TODO can't get go back to work -->
+					<!-- 				<button -->
+					<!-- 					class="btn btn-primary" -->
+					<!-- 					ng-click="goBack()" -->
+					<!-- 				>Continue Shopping</button> -->
+					<a href="#/Shop" class="btn btn-primary" role="button">Continue Shopping</a>
+					<span class="col-xs-12">
+						<a href="#/Basket" class="btn btn-primary" role="button">Go to Basket</a>
+					</span>
+				</span>
+			</div>
+		</div>
+	</span>
+</div>
+<div class="row col-xs-12 col-sm-12 col-md-12 col-lg-offset-1 col-lg-10 text-center">
+    <hr>
+	<h3>Recommended items</h3>
+	<div class="row ">
+		<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3" ng-repeat="rec in recommended">
+			<div class="thumbnail">
+				<img ng-src="{{rec.image}}&width=100" class="img-rounded extra-margin-bottom" />
+				<p>{{rec.name}} - {{rec.price/100 | currency: "&pound;" }}</p>
+				<a href="#/Item/{{rec.key}}" class="btn btn-sm btn-primary" role="button">More Information</a>
+				<a href="#/Add/{{rec.key}}" class="btn btn-sm btn-primary extra-margin-bottom " role="button"> to Basket</a>
+			</div>
+		</div>
+	</div>
+</div>
+

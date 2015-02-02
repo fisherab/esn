@@ -1,0 +1,32 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+	<ui:with field='res' type='com.eyespynature.user.Resources' />
+
+	<ui:style>
+		.images {
+			margin: 10px 10px 10px 10px;
+		}
+		
+		.name {
+			width: 10em;
+		}
+	</ui:style>
+
+	<g:VerticalPanel>
+		<g:Label>Item added to basket</g:Label>
+		<g:HorizontalPanel>
+
+			<g:VerticalPanel ui:field="images" addStyleNames='{style.images}' />
+
+			<g:VerticalPanel>
+				<g:HTML ui:field="name" addStyleNames='{style.name}' />
+			</g:VerticalPanel>
+
+		</g:HorizontalPanel>
+		<g:HorizontalPanel spacing="20">
+			<g:Button ui:field="kontinue">Continue shopping</g:Button>
+			<g:Button ui:field="basket">Go to basket</g:Button>
+		</g:HorizontalPanel>
+	</g:VerticalPanel>
+</ui:UiBinder>

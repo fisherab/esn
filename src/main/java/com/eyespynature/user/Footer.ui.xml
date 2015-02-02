@@ -1,0 +1,23 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:style>
+        
+    </ui:style>
+
+    <g:VerticalPanel width="100%">
+
+        <g:HorizontalPanel spacing="14">
+            <g:InlineHyperlink targetHistoryToken="contact">Contact
+                us
+            </g:InlineHyperlink>
+            <g:InlineHyperlink targetHistoryToken="about">About us
+            </g:InlineHyperlink>
+            <g:InlineHyperlink targetHistoryToken="delivery">Delivery
+            </g:InlineHyperlink>
+            <g:InlineHyperlink targetHistoryToken="privacy">Privacy
+                policy
+            </g:InlineHyperlink>
+        </g:HorizontalPanel>
+    </g:VerticalPanel>
+
+</ui:UiBinder>

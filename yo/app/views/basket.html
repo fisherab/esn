@@ -1,0 +1,142 @@
+<span ng-show="basketItems.length < 1">
+	<h4>Your basket is empty...</h4>
+	<a href="#/Shop/Nestboxes" class="btn btn-primary btn-lg" role="button">Visit Shop</a>
+</span>
+<form name="basket" ng-show="basketItems.length > 0" novalidate>
+	<div class="well .extra-margin-top col-xs-offset-1 col-xs-11 col-sm-offset-1 col-sm-11 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-9">
+		<div class="row">
+			<strong class="hidden-xs col-sm-offset-7 col-sm-2 col-md-offset-7 col-md-2 col-lg-offset-7 col-lg-2 ">Price </strong>
+			<strong class="hidden-xs col-sm-3 col-md-3 col-lg-3"> Quantity </strong>		
+            <span class="col-xs-6 hidden-sm hidden-md hidden-lg"></span>
+			<strong class="col-xs-2 hidden-sm hidden-md hidden-lg">Price </strong>
+			<strong class="col-xs-4 hidden-sm hidden-md hidden-lg">Quantity </strong>	
+		</div>
+		<div class="row"><hr></div>
+		<span ng-repeat="item in basketItems">
+			<div class="row">
+				<span class="col-xs-offset-0 col-xs-3 col-sm-offset-0 col-sm-3 col-md-offset-0 col-md-2 col-lg-offset-1 col-lg-1">
+					<img ng-src="{{item.image}}" class=" img-rounded pull-right" />
+				</span>
+				<span class="col-xs-3 col-sm-4 col-md-5 col-lg-5"> {{item.name}} </span>
+				<span class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> {{item.price/100 | currency: "&pound;" }} </span>
+				<span class="col-xs-4 col-sm-3 col-md-3 col-lg-3"> 
+				   {{item.count}} 			
+					<button class="btn btn-primary btn-xs extra-margin-left" ng-click="addItem(item.key)" alt="increase quantity">
+						<i class="fa fa-chevron-up "></i>
+					</button>
+					<button ng-disabled="item.count === 1" class="btn btn-primary btn-xs" ng-click="removeItem(item.key)" alt="decrease quantity">
+						<i class="fa fa-chevron-down "></i>
+					</button>
+					<button class="btn btn-xs extra-margin-left" ng-click="deleteItem(item.key)" alt="delete item">
+						<i class="fa fa-times"></i>
+					</button>					
+				</span>
+<!-- 				<span class="col-xs-12 col-sm-12 col-md-12 col-lg-offset-1 col-lg-11"><a href="#/Item/{{item.key}}">{{item.name}}</a> removed from basket.</span>
+ -->				<hr>
+			</div>
+			<hr ng-hide="$last">
+		</span>
+		<span class="col-xs-1 col-sm-1 col-md-1 col-lg-2"></span>
+		<div class="row"><hr></div>
+		<div class="row">		
+			<strong class="col-xs-9 text-right">
+				Sub-total ({{basketTotals.quantity}} items) : </strong>
+			<strong class="col-xs-3"> {{basketTotals.subtotal/100 | currency: "&pound;" }} </strong>
+		</div>
+	</div>
+	<div class="row">
+		<span class="col-xs-offset-1 col-xs-11 col-sm-offset-1 col-sm-11 col-md-offset-0 col-md-7 col-lg-offset-0 col-lg-6">
+			<div>
+				<h4>Delivery options</h4>
+			</div>
+			<div class="row">
+				<label for="firstClass" class="col-xs-8 col-sm-8 col-md-8 col-lg-8"> Royal mail Signed For 1st Class (Typically 1-3 days)</label>
+				<span class="col-xs-2 col-sm-2 col-md-1 col-lg-1"> {{delivery.firstClass | currency: "&pound;" }}</span>
+				<span class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+					<input type="radio" ng-model="basket.delivery" value="firstClass" id="firstClass" required>
+				</span>
+			</div>
+			<div class="row">
+				<label for="nextDay" class="col-xs-8 col-sm-8 col-md-8 col-lg-8"> Royal Mail Next Day delivery </label>
+				<span class="col-xs-2 col-sm-2 col-md-1 col-lg-1"> {{delivery.nextDay | currency: "&pound;" }}</span>
+				<span class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+					<input type="radio" ng-model="basket.delivery" value="nextDay" id="nextDay" required>
+				</span>
+			</div>
+			<div class="row">
+				<label for="economy" class="col-xs-8 col-sm-8 col-md-8 col-lg-8"> Collect+ Economy (Typically 3-5 working days) </label>
+				<span class="col-xs-2 col-sm-2 col-md-1 col-lg-1"> {{delivery.economy | currency: "&pound;" }}</span>
+				<span class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+					<input type="radio" ng-model="basket.delivery" value="economy" id="economy" required>
+				</span>
+			</div>
+			<div class="row">
+				<label for="standard" class="col-xs-8 col-sm-8 col-md-8 col-lg-8"> Collect+ Standard (Typically 2 working days) </label>
+				<span class="col-xs-2 col-sm-2 col-md-1 col-lg-1"> {{delivery.standard | currency: "&pound;" }}</span>
+				<span class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+					<input type="radio" ng-model="basket.delivery" value="standard" id="standard" required>
+				</span>
+			</div>
+			<div class="row">
+				<label for="pickUp" class="col-xs-8 col-sm-8 col-md-8 col-lg-8"> Collect+ to a local shop (Typically 3-5 working days) </label>
+				<span class="col-xs-2 col-sm-2 col-md-1 col-lg-1"> {{delivery.pickUp | currency: "&pound;" }}</span>
+				<span class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+					<input type="radio" ng-model="basket.delivery" value="pickUp" id="pickUp" required>
+				</span>
+			</div>
+		</span>
+		<span class="col-xs-offset-1 col-xs-11 col-sm-offset-1 col-sm-11 col-md-offset-0 col-md-5 col-lg-offset-0 col-lg-6">
+			<div class="row col-xs-offset-1 col-xs-11">
+				<h4>Delivery Address</h4>
+				<p>
+					Please enter the delivery address, which must be in the UK.
+					<br />
+					<strong ng-show="basket.delivery === 'pickUp'">Enter the shop address for Collect+ to a local shop.</strong>
+				</p>
+			</div>
+			<div class="row">
+				<label for="name" class="text-right col-xs-4 col-sm-3 col-md-4 col-lg-3"> Full Name </label>
+				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+					<input type="text" class="form-control " ng-model="basket.name" id="name" placeHolder="Enter Name" required>
+				</div>
+			</div>
+			<div class="row">
+				<label for="addressLine1" class="text-right col-xs-4 col-sm-3 col-md-4 col-lg-3"> Address 1 </label>
+				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+					<input type="text" class="form-control " ng-model="basket.addressLine1" id="addressLine1" placeHolder="Enter Address line 1" required>
+				</div>
+			</div>
+			<div class="row">
+				<label for="addressLine2" class="text-right col-xs-4 col-sm-3 col-md-4 col-lg-3"> Address 2 </label>
+				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+					<input type="text" class="form-control " ng-model="basket.addressLine2" id="addressLine2" placeHolder="Enter Address line 2">
+				</div>
+			</div>
+			<div class="row">
+				<label for="addressCity" class="text-right col-xs-4 col-sm-3 col-md-4 col-lg-3"> Town / City </label>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<input type="text" class="form-control " ng-model="basket.addressCity" id="addressCity" placeHolder="Enter Town / City" required>
+				</div>
+			</div>
+			<div class="row">
+				<label for="addressCounty" class="text-right col-xs-4 col-sm-3 col-md-4 col-lg-3"> County </label>
+				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+					<input type="text" class="form-control " ng-model="basket.addressCounty" id="addressCounty" placeHolder="Enter County" required>
+				</div>
+			</div>
+			<div class="row">
+				<!-- 	TODO add validation -->
+				<label for="postcode" class="text-right col-xs-4 col-sm-3 col-md-4 col-lg-3"> Postcode </label>
+				<div class="col-xs-5 col-sm-4 col-md-4 col-lg-4">
+					<input type="text" class="form-control " ng-model="basket.postcode" id="postcode" placeHolder="Enter Postcode" required>
+				</div>
+			</div>
+		</span>
+	</div>
+	<br />
+	<div class="row text-center">
+		<input type="image" name="Pay Pal Checkout" alt="Fast checkout through Pay Pal"
+			src="https://www.paypal.com/en_GB/GB/i/btn/btn_xpressCheckout.gif" ng-disabled="!basket.$valid" ng-class="basket.$valid? '' : 'lessOpacity'">
+	</div>
+</form>
+

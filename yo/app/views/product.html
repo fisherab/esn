@@ -1,0 +1,41 @@
+
+
+<ol class="breadcrumb">
+  <li ng-repeat="crumb in product.breadcrumbs">
+     <a ng-href="#/Shop/{{crumb}}">{{crumb}}</a>
+  </li>
+  <li class="active">{{product.name}}</li>
+</ol>
+<div class="row">
+	<span class="col-xs-offset-1 col-xs-10 col-sm-6 col-md-5 col-lg-4 text-center"> 
+	<!--  TODO add multiple images -->
+		<img ng-src="{{product.image[0]}}&width=320"
+		class="extra-padding-top img-rounded"
+	/>
+	</span>
+	<span class="col-xs-offset-1 col-xs-10 col-sm-6 col-md-7 col-lg-8">
+		<h3>{{product.name}}</h3>
+		<p>{{product.summary}}</p>
+		<h4>{{product.price/100 | currency: "&pound;" }}</h4>
+		<quantity-warning></quantity-warning>
+		<div class="text-right">
+			<a href="#/Add/{{product.key}}" class="btn btn-primary" role="button">Add to Basket</a>
+			<br />
+		</div>
+		<span>
+			<h4>Description</h4>
+			<p ng-repeat="desc in product.longDescription">{{desc}}</p>
+			<h4>Advice</h4>
+			<p ng-repeat="info in product.notes">{{info}}</p>
+			<h4>Specification</h4>
+			<ul>
+				<li ng-repeat="spec in product.spec">{{spec}}</li>
+			</ul>
+		</span>
+		<div class="text-right">
+			<a href="#/Add/{{product.key}}" class="btn btn-primary" role="button">Add to Basket</a>
+		</div>
+	</span>
+
+
+</div>

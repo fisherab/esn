@@ -1,0 +1,44 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:u="urn:import:com.eyespynature.user">
+
+    <ui:with field='res' type='com.eyespynature.user.Resources' />
+
+    <ui:style>
+        .down {
+        	margin: 18px 0px 0px 5px;
+        }
+        
+        .fixedwidth {
+        	width: 100px;
+        }
+        
+        .spaceleft {
+        	margin: 2px 0px 0px 20px;
+        }
+        
+        .bigspaceleft {
+        	margin: 0px 0px 0px 398px;
+        }
+    </ui:style>
+
+
+    <g:VerticalPanel>
+
+        <g:HorizontalPanel addStyleNames='{style.down}'>
+            <g:TextBox ui:field="search" addStyleNames='{style.bigspaceleft}'></g:TextBox>
+            <g:Button ui:field="searchButton">Search</g:Button>
+            <u:BasketInHeader ui:field="basketInHeader" addStyleNames='{style.spaceleft}' />
+        </g:HorizontalPanel>
+
+        <g:HorizontalPanel addStyleNames='{style.down}'>
+            <g:Button ui:field="home" addStyleNames='{style.fixedwidth}'>Home</g:Button>
+            <g:Button ui:field="nestboxes" addStyleNames='{style.fixedwidth}'>Nestboxes</g:Button>
+            <g:Button ui:field="cameras" addStyleNames='{style.fixedwidth}'>Cameras</g:Button>
+            <g:Button ui:field="tools" addStyleNames='{style.fixedwidth}'>Tools</g:Button>
+            <g:Button ui:field="faq" addStyleNames='{style.fixedwidth}'>FAQ</g:Button>
+            <g:Button ui:field="gettingStarted" addStyleNames='{style.fixedwidth}'>Getting started</g:Button>
+            <g:Button ui:field="aboutUs" addStyleNames='{style.fixedwidth}'>About Us</g:Button>
+            <g:Button ui:field="contactUs" addStyleNames='{style.fixedwidth}'>Contact Us</g:Button>
+        </g:HorizontalPanel>
+    </g:VerticalPanel>
+
+</ui:UiBinder>
