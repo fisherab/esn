@@ -53,7 +53,7 @@ public class PaypalOrder {
 	@Column(name = "ORDER_", nullable = false)
 	private String order;
 
-	@Column(length = 2048, nullable = false)
+	@Column(length = 4096, nullable = false)
 	private String response;
 
 	@Column(nullable = false)
