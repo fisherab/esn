@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.eyespynature.server.bean.PaypalOrderBean;
+import com.eyespynature.shared.PaymentException;
 import com.eyespynature.shared.StockLevelException;
 
 @SuppressWarnings("serial")
@@ -34,15 +35,16 @@ public class PaypalReceiverServlet extends HttpServlet {
 			} else if (request.getPathInfo().equals("/return")) {
 				String id = null;
 				try {
-					id = orderBean.executePaypal(request.getParameter("token"),
-							request.getParameter("PayerID"));
+					id = orderBean.executePaypal(request.getParameter("token"), request.getParameter("PayerID"));
+					response.sendRedirect(baseUrl + "index.html#return " + id);
 				} catch (StockLevelException e) {
 					response.sendRedirect(baseUrl + "index.html#reject");
+				} catch (PaymentException e) {
+					response.sendRedirect(baseUrl + "index.html#badPayment");
 				}
-				response.sendRedirect(baseUrl + "index.html#return " + id);
 			}
 		} catch (Exception e) {
-			logger.error(e.getClass() + " " + e.getMessage());
+			logger.error("Unexpected exception", e);
 		}
 	}
 }

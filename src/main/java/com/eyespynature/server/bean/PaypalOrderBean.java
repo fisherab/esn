@@ -27,6 +27,7 @@ import com.eyespynature.server.PaypalTokenHolder;
 import com.eyespynature.server.entity.PaypalOrder;
 import com.eyespynature.server.entity.ProductType;
 import com.eyespynature.shared.InternalException;
+import com.eyespynature.shared.PaymentException;
 import com.eyespynature.shared.PaypalOrderTransferObject;
 import com.eyespynature.shared.StockLevelException;
 import com.eyespynature.shared.json.Order;
@@ -49,25 +50,21 @@ public class PaypalOrderBean {
 			Date expiryCreated = new Date(new Date().getTime() - 15 * 60 * 1000);
 			Date expiryApproved = new Date(new Date().getTime() - 2 * 60 * 1000);
 
-			List<PaypalOrder> ps = em.createNamedQuery(PaypalOrderTransferObject.GET_DEAD,
-					PaypalOrder.class).getResultList();
+			List<PaypalOrder> ps = em.createNamedQuery(PaypalOrderTransferObject.GET_DEAD, PaypalOrder.class)
+					.getResultList();
 			for (PaypalOrder p : ps) {
-				logger.debug("Consider deletion of " + p.getState() + " transaction " + p.getId()
-						+ " updated " + p.getUpdateTime());
+				logger.debug("Consider deletion of " + p.getState() + " transaction " + p.getId() + " updated "
+						+ p.getUpdateTime());
 				if (p.getState().equals("created") && p.getUpdateTime().before(expiryCreated)) {
 					em.remove(p);
-					logger.debug("Deleted created transaction " + p.getId() + " updated "
-							+ p.getUpdateTime());
-				} else if (p.getState().equals("approved")
-						&& p.getUpdateTime().before(expiryApproved)) {
+					logger.debug("Deleted created transaction " + p.getId() + " updated " + p.getUpdateTime());
+				} else if (p.getState().equals("approved") && p.getUpdateTime().before(expiryApproved)) {
 					em.remove(p);
-					logger.debug("Deleted approved transaction " + p.getId() + " updated "
-							+ p.getUpdateTime());
+					logger.debug("Deleted approved transaction " + p.getId() + " updated " + p.getUpdateTime());
 				}
 			}
 
-			ps = em.createNamedQuery(PaypalOrderTransferObject.GET_PENDING, PaypalOrder.class)
-					.getResultList();
+			ps = em.createNamedQuery(PaypalOrderTransferObject.GET_PENDING, PaypalOrder.class).getResultList();
 			ObjectMapper mapper = new ObjectMapper();
 			for (PaypalOrder o : ps) {
 				logger.debug("Get " + o);
@@ -91,11 +88,11 @@ public class PaypalOrderBean {
 
 				rootNode = mapper.readValue(con.getInputStream(), JsonNode.class);
 
-				logger.debug("Get capture response "
-						+ mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode));
+				logger.debug(
+						"Get capture response " + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode));
 
-				updatePaypalOrder(o.getId(), mapper.writeValueAsString(rootNode), "capture-"
-						+ rootNode.get("state").asText());
+				updatePaypalOrder(o.getId(), mapper.writeValueAsString(rootNode),
+						"capture-" + rootNode.get("state").asText());
 			}
 		} catch (Throwable e) {
 			logger.debug(e.getClass() + " " + e.getMessage());
@@ -117,8 +114,7 @@ public class PaypalOrderBean {
 	}
 
 	public void cancelPaypal(String token) {
-		List<PaypalOrder> results = em
-				.createNamedQuery(PaypalOrderTransferObject.GET_BY_TOKEN, PaypalOrder.class)
+		List<PaypalOrder> results = em.createNamedQuery(PaypalOrderTransferObject.GET_BY_TOKEN, PaypalOrder.class)
 				.setParameter("token", token).getResultList();
 		if (results.size() == 1) {
 			em.remove(results.get(0));
@@ -129,11 +125,10 @@ public class PaypalOrderBean {
 
 	}
 
-	public String executePaypal(String token, String payerId) throws InternalException,
-			StockLevelException {
+	public String executePaypal(String token, String payerId)
+			throws InternalException, StockLevelException, PaymentException {
 		try {
-			List<PaypalOrder> results = em
-					.createNamedQuery(PaypalOrderTransferObject.GET_BY_TOKEN, PaypalOrder.class)
+			List<PaypalOrder> results = em.createNamedQuery(PaypalOrderTransferObject.GET_BY_TOKEN, PaypalOrder.class)
 					.setParameter("token", token).getResultList();
 			if (results.size() == 1) {
 				logger.debug("Execute order token: '" + token + "' payerId: '" + payerId + "'");
@@ -161,7 +156,6 @@ public class PaypalOrderBean {
 						execute = link.get("href").asText();
 					}
 				}
-
 				HttpsURLConnection con = (HttpsURLConnection) (new URL(execute)).openConnection();
 				con.setRequestMethod("POST");
 				con.setRequestProperty("Accept", "application/json");
@@ -175,16 +169,20 @@ public class PaypalOrderBean {
 
 				int responseCode = con.getResponseCode();
 				if (responseCode / 100 != 2) {
-					throw new InternalException("Response code " + responseCode);
+					mapper = new ObjectMapper();
+					JsonNode rootNode = mapper.readValue(con.getErrorStream(), JsonNode.class);
+					String name = rootNode.get("name").asText();
+					String msg = rootNode.get("message").asText();
+					logger.debug("Approval response " + name + " " + msg);
+					throw new PaymentException(name, msg);
 				}
 
 				mapper = new ObjectMapper();
 				JsonNode rootNode = mapper.readValue(con.getInputStream(), JsonNode.class);
-				logger.debug("Approval response "
-						+ mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode));
+				logger.debug(
+						"Approval response " + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode));
 				String id = rootNode.get("id").asText();
-				updatePaypalOrder(id, mapper.writeValueAsString(rootNode), rootNode.get("state")
-						.asText());
+				updatePaypalOrder(id, mapper.writeValueAsString(rootNode), rootNode.get("state").asText());
 
 				PaypalOrder ppOrder = em.find(PaypalOrder.class, id);
 				JsonNode payer_info = rootNode.get("payer").get("payer_info");
@@ -199,10 +197,12 @@ public class PaypalOrderBean {
 			}
 		} catch (StockLevelException e) {
 			throw e;
+		} catch (PaymentException e) {
+			throw e;
 		} catch (Exception e) {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			e.printStackTrace(new PrintStream(baos));
-			logger.debug(baos);
+			logger.error(baos);
 			throw new InternalException(e.getClass() + " " + e.getMessage());
 		}
 	}
@@ -214,14 +214,13 @@ public class PaypalOrderBean {
 		PaypalOrder ppOrder = em.find(PaypalOrder.class, id);
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		Date createTime = df.parse(rootNode.get("create_time").asText().replace("Z", "GMT"));
-		Date updateTime = df.parse(rootNode.get("update_time").asText().replace("Z", "GMT"));
+		Date updateTime = new Date();
 		ppOrder.setState(state);
 		ppOrder.setCreateTime(createTime);
 		ppOrder.setUpdateTime(updateTime);
 		ppOrder.setResponse(payment);
 		ppOrder.setToken(null);
-		logger.debug(id + " updated create:" + createTime + " update:" + updateTime + " state:"
-				+ state);
+		logger.debug(id + " updated create:" + createTime + " update:" + updateTime + " state:" + state);
 	}
 
 	public List<PaypalOrderTransferObject> search(String query) throws InternalException {
@@ -281,11 +280,9 @@ public class PaypalOrderBean {
 
 			rootNode = mapper.readValue(con.getInputStream(), JsonNode.class);
 
-			logger.debug("Capture response "
-					+ mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode));
+			logger.debug("Capture response " + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(rootNode));
 
-			updatePaypalOrder(id, mapper.writeValueAsString(rootNode),
-					"capture-" + rootNode.get("state").asText());
+			updatePaypalOrder(id, mapper.writeValueAsString(rootNode), "capture-" + rootNode.get("state").asText());
 
 			String order = o.getOrder();
 			for (JsonNode item : mapper.readValue(order, JsonNode.class).get("order_items")) {
@@ -304,7 +301,8 @@ public class PaypalOrderBean {
 		}
 
 		// public void processDelivered(OrderSummary orderSummary) {
-		// GoogleOrder o = em.find(GoogleOrder.class, orderSummary.getGoogleOrderNumber());
+		// GoogleOrder o = em.find(GoogleOrder.class,
+		// orderSummary.getGoogleOrderNumber());
 		// ShoppingCart order = orderSummary.getShoppingCart();
 		// for (Item line : order.getItems().getItem()) {
 		// String mid = line.getMerchantItemId();

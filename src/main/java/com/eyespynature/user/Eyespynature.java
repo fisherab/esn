@@ -29,8 +29,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class Eyespynature implements EntryPoint {
 
 	private static final EventBus bus = TheEventBus.getInstance();
-	final private static Logger logger = Logger.getLogger(Eyespynature.class
-			.getName());
+	final private static Logger logger = Logger.getLogger(Eyespynature.class.getName());
 	private Widget body = new Widget();
 
 	private DockLayoutPanel main;
@@ -84,8 +83,7 @@ public class Eyespynature implements EntryPoint {
 				main.clear();
 				main.add(body);
 				Cookies.setCookie("cookies", null,
-						new Date(System.currentTimeMillis() + 100L * 365 * 24
-								* 3600 * 1000));
+						new Date(System.currentTimeMillis() + 100L * 365 * 24 * 3600 * 1000));
 			}
 		});
 
@@ -103,16 +101,15 @@ public class Eyespynature implements EntryPoint {
 				if (token.startsWith("Home")) {
 					Eyespynature.this.displayPanel(new MenuPanel(token));
 				} else if (token.startsWith("item:")) {
-					Eyespynature.this.displayPanel(new PageItemPanel(token
-							.substring(5)));
+					Eyespynature.this.displayPanel(new PageItemPanel(token.substring(5)));
 				} else if (token.equals("login")) {
 					Eyespynature.this.displayPanel(loginPanel);
 				} else if (token.equals("basket")) {
 					Eyespynature.this.displayPanel(basketPanel);
 				} else if (token.equals("search")) {
 					Eyespynature.this.displayPanel(searchPanel);
-				} else if (token.equals("cancel") || token.startsWith("return")
-						|| token.equals("reject")) {
+				} else if (token.equals("cancel") || token.startsWith("return") || token.equals("reject")
+						|| token.equals("badPayment")) {
 					basketPanel.setPopup(token);
 					Eyespynature.this.displayPanel(basketPanel);
 				} else {

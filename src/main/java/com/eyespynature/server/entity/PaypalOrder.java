@@ -75,15 +75,15 @@ public class PaypalOrder {
 		this.response = payment;
 		this.token = token;
 		this.address = address;
+		logger.debug("Payment " + payment);
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode rootNode = mapper.readValue(payment, JsonNode.class);
 		id = rootNode.get("id").asText();
 		state = rootNode.get("state").asText();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 		createTime = df.parse(rootNode.get("create_time").asText().replace("Z", "GMT"));
-		updateTime = df.parse(rootNode.get("update_time").asText().replace("Z", "GMT"));
-		logger.debug("Created paypal order " + id + " at " + createTime + " for " + order
-				+ "token: " + token);
+		updateTime = createTime;
+		logger.debug("Created paypal order " + id + " at " + createTime + " for " + order + "token: " + token);
 	}
 
 	public String getAddress() {
@@ -154,9 +154,8 @@ public class PaypalOrder {
 			ProductType pt = em.find(ProductType.class, oi.sku);
 			order.put(pt.getName(), oi.quantity);
 		}
-		return new PaypalOrderTransferObject(id, createTime, updateTime, state, delivery, order,
-				response, mapper.readValue(address, Address.class), first_name, last_name, email,
-				trackNum);
+		return new PaypalOrderTransferObject(id, createTime, updateTime, state, delivery, order, response,
+				mapper.readValue(address, Address.class), first_name, last_name, email, trackNum);
 	}
 
 	public Date getUpdateTime() {

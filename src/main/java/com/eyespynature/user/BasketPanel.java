@@ -148,6 +148,9 @@ public class BasketPanel extends Composite {
 	DialogBox rejectBox;
 
 	@UiField
+	DialogBox badPaymentBox;
+
+	@UiField
 	DialogBox cancelBox;
 
 	@UiField
@@ -224,8 +227,8 @@ public class BasketPanel extends Composite {
 	}
 
 	private void loadAddressFromForm() {
-		address = new Address(address1.getText(), address2.getText(), town.getText(),
-				county.getText(), postcode.getText());
+		address = new Address(address1.getText(), address2.getText(), town.getText(), county.getText(),
+				postcode.getText());
 		if (Cookies.getCookie("cookies") != null) {
 			Date date = new Date();
 			date.setTime(date.getTime() + 3600 * 168 * 1000 * 52);
@@ -279,6 +282,11 @@ public class BasketPanel extends Composite {
 		rejectBox.hide();
 	}
 
+	@UiHandler("okBadPaymentButton")
+	void handleOkBadPaymentButton(ClickEvent e) {
+		badPaymentBox.hide();
+	}
+
 	@UiHandler("okCancelButton")
 	void handleOkCancelButton(ClickEvent e) {
 		cancelBox.hide();
@@ -290,12 +298,14 @@ public class BasketPanel extends Composite {
 		processing.setVisible(false);
 
 		rejectBox.center();
+		badPaymentBox.center();
 		confirmedBox.center();
 		returnBox.center();
 		cancelBox.center();
 		addressBox.center();
 
 		rejectBox.hide();
+		badPaymentBox.hide();
 		confirmedBox.hide();
 		returnBox.hide();
 		cancelBox.hide();
@@ -317,8 +327,7 @@ public class BasketPanel extends Composite {
 			String[] cartArray = cart.split(" ");
 			int n = cartArray.length;
 			this.toRestore = n / 2;
-			this.warning.setHTML("Cart contents are being restored with " + this.toRestore
-					+ " to go");
+			this.warning.setHTML("Cart contents are being restored with " + this.toRestore + " to go");
 			for (int i = 0; i < n; i += 2) {
 				long key = Long.parseLong(cartArray[i]);
 				final int count = Integer.parseInt(cartArray[i + 1]);
@@ -336,8 +345,7 @@ public class BasketPanel extends Composite {
 					@Override
 					public void onSuccess(ProductTypeTransferObject ptto) {
 						BasketPanel.this.toRestore--;
-						TheEventBus.getInstance()
-								.fireEvent(new AddToBasketEvent(ptto, count, true));
+						TheEventBus.getInstance().fireEvent(new AddToBasketEvent(ptto, count, true));
 						if (BasketPanel.this.toRestore == 0) {
 							BasketPanel.this.warning.setHTML("");
 						}
@@ -363,22 +371,19 @@ public class BasketPanel extends Composite {
 				if (!update) {
 					if (Cookies.getCookie("processing") == null) {
 						if (ptto.getNumberInStock() == 0) {
-							Window.alert("There are no "
-									+ ptto.getName()
+							Window.alert("There are no " + ptto.getName()
 									+ " items in stock so none have been restored to to your basket");
 						} else {
 							int n = event.getCount();
 							if (n > ptto.getNumberInStock()) {
-								Window.alert("The number of items of type "
-										+ ptto.getName()
+								Window.alert("The number of items of type " + ptto.getName()
 										+ " in your basket has been reduced to match available stock");
 								n = ptto.getNumberInStock();
 							}
 							BasketPanel.this.basket.add(new BasketItem(BasketPanel.this, ptto, n));
 						}
 					} else {
-						BasketPanel.this.basket.add(new BasketItem(BasketPanel.this, ptto, event
-								.getCount()));
+						BasketPanel.this.basket.add(new BasketItem(BasketPanel.this, ptto, event.getCount()));
 					}
 				}
 				updateCart();
@@ -412,8 +417,8 @@ public class BasketPanel extends Composite {
 
 		if (Cookies.getCookie("address1") != null) {
 			address = new Address(Cookies.getCookie("address1"), Cookies.getCookie("address2"),
-					Cookies.getCookie("town").toUpperCase(), Cookies.getCookie("county"), Cookies
-							.getCookie("postcode").toUpperCase());
+					Cookies.getCookie("town").toUpperCase(), Cookies.getCookie("county"),
+					Cookies.getCookie("postcode").toUpperCase());
 		}
 		displayAddress();
 		if (address != null) {
@@ -460,8 +465,8 @@ public class BasketPanel extends Composite {
 		for (Widget item : this.basket) {
 			BasketItem bi = (BasketItem) item;
 			ProductTypeTransferObject ptto = bi.getPtto();
-			bis.add(new BasketTransferItemObject(ptto.getId(), ptto.getName(), ptto.getShortD(),
-					ptto.getPrice(), bi.getCount()));
+			bis.add(new BasketTransferItemObject(ptto.getId(), ptto.getName(), ptto.getShortD(), ptto.getPrice(),
+					bi.getCount()));
 		}
 		setProcessing(true);
 		if (Cookies.getCookie("cookies") != null) {
@@ -469,31 +474,29 @@ public class BasketPanel extends Composite {
 			date.setTime(date.getTime() + 3600 * 168 * 1000);
 			Cookies.setCookie("processing", "", date);
 		}
-		processingMessage
-				.setHTML("<p>Establishing PayPalconnection - please wait.</p><p>Don't use browser forward back or refresh buttons.</p>");
-		BasketPanel.basketService.checkOut(bis, dMethod, provider, address,
-				new AsyncCallback<String>() {
+		processingMessage.setHTML(
+				"<p>Establishing PayPalconnection - please wait.</p><p>Don't use browser forward back or refresh buttons.</p>");
+		BasketPanel.basketService.checkOut(bis, dMethod, provider, address, new AsyncCallback<String>() {
 
-					@Override
-					public void onFailure(Throwable caught) {
-						warning.setHTML("");
-						Window.alert("Failure " + caught);
-					}
+			@Override
+			public void onFailure(Throwable caught) {
+				warning.setHTML("");
+				Window.alert("Failure " + caught);
+			}
 
-					@Override
-					public void onSuccess(String result) {
-						processingMessage
-								.setHTML("<p>Transferring to PayPal - please wait.</p><p>Don't use browser forward back or refresh buttons.</p>");
-						Window.open(result, "_self", "");
-					}
-				});
+			@Override
+			public void onSuccess(String result) {
+				processingMessage.setHTML(
+						"<p>Transferring to PayPal - please wait.</p><p>Don't use browser forward back or refresh buttons.</p>");
+				Window.open(result, "_self", "");
+			}
+		});
 	}
 
 	public static String formatPrice(long price) {
 		int pence = (int) (price % 100);
 		int pounds = (int) (price / 100);
-		return "&pound;" + Long.toString(pounds) + "."
-				+ (Long.toString(pence) + "00").substring(0, 2);
+		return "&pound;" + Long.toString(pounds) + "." + (Long.toString(pence) + "00").substring(0, 2);
 	}
 
 	public void remove(BasketItem basketItem) {
@@ -553,8 +556,8 @@ public class BasketPanel extends Composite {
 				paypalCheckout.setHTML("");
 				setAddressLabel.setVisible(true);
 			} else {
-				paypalCheckout
-						.setHTML("<input type=\"image\" name=\"Pay Pal Checkout\" alt=\"Fast checkout through Google\" src=\"https://www.paypal.com/en_GB/GB/i/btn/btn_xpressCheckout.gif\">");
+				paypalCheckout.setHTML(
+						"<input type=\"image\" name=\"Pay Pal Checkout\" alt=\"Fast checkout through Google\" src=\"https://www.paypal.com/en_GB/GB/i/btn/btn_xpressCheckout.gif\">");
 				setAddressLabel.setVisible(false);
 			}
 			StringBuilder sb = new StringBuilder();
@@ -597,6 +600,8 @@ public class BasketPanel extends Composite {
 			returnBox.center();
 		} else if (popup.equals("reject")) {
 			rejectBox.center();
+		} else if (popup.equals("badPayment")) {
+			badPaymentBox.center();
 		} else if (popup.equals("cancel")) {
 			cancelBox.center();
 		}
